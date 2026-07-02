@@ -160,17 +160,17 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
     <div ref={containerRef} className="relative w-full bg-[#03010a]">
       {/* Hero Section - Full screen, no sticky tricks */}
       <motion.section
-        style={{ 
+        style={{
           opacity: heroOpacity,
           scale: heroScale,
         }}
-        className={`relative w-full flex flex-col items-center justify-between overflow-hidden bg-[#05030e] select-none cursor-none min-h-screen ${
-          isDesktop ? "pt-24 pb-8 px-4" : "pt-24 pb-12 px-4"
-        }`}
+        className={`relative w-full flex flex-col items-center justify-between overflow-hidden bg-[#05030e] select-none cursor-none min-h-screen ${isDesktop ? "pt-24 pb-8 px-4" : "pt-24 pb-12 px-4"
+          }`}
       >
-        
+
         {/* CSS Custom Keyframe Styles */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           .cursor-none *, .cursor-none {
             cursor: none !important;
           }
@@ -247,7 +247,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           {/* Trailing Outer Ring */}
           <motion.div
             style={{ x: trailX, y: trailY, translateX: "-50%", translateY: "-50%" }}
-            animate={{ 
+            animate={{
               scale: isHoveringInteractive ? 2 : 1,
               borderColor: isHoveringInteractive ? "rgba(255, 117, 151, 0.6)" : "rgba(255, 255, 255, 0.25)"
             }}
@@ -278,7 +278,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             STARRING & BACKGROUND ELEMENTS (Twinkles & Auroras)
             ========================================== */}
         <motion.div style={{ x: bgX, y: bgY, scale: bgZoom }} className="absolute inset-0 pointer-events-none z-0">
-          
+
           {/* Noise Jitter layer */}
           <div className="absolute inset-[-5%] noise-overlay opacity-[0.035] pointer-events-none z-10" style={{ animation: 'noise-jitter 0.4s steps(4) infinite' }}></div>
 
@@ -306,7 +306,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           ))}
 
           {/* Giant Aurora flow 1 */}
-          <div 
+          <div
             className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] rounded-full blur-[140px] opacity-[0.25]"
             style={{
               background: 'radial-gradient(circle, rgba(139,92,246,0.6) 0%, rgba(236,72,153,0.15) 60%, rgba(0,0,0,0) 100%)',
@@ -315,7 +315,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           />
 
           {/* Giant Aurora flow 2 */}
-          <div 
+          <div
             className="absolute bottom-[-10%] right-[-10%] w-[90vw] h-[90vw] rounded-full blur-[160px] opacity-[0.22]"
             style={{
               background: 'radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.15) 70%, rgba(0,0,0,0) 100%)',
@@ -324,7 +324,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           />
 
           {/* Golden Ambient Rays */}
-          <div 
+          <div
             className="absolute top-[-40%] left-[10%] w-[120vw] h-[120vh] pointer-events-none z-0"
             style={{
               backgroundImage: 'repeating-conic-gradient(from 0deg, rgba(251,191,36,0.015) 0deg 15deg, transparent 15deg 30deg)',
@@ -335,8 +335,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           />
 
           {/* Ambient fog overlays */}
-          <motion.div 
-            animate={{ x: ['-20%', '20%'] }} 
+          <motion.div
+            animate={{ x: ['-20%', '20%'] }}
             transition={{ duration: 40, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
             className="absolute bottom-0 left-0 right-0 h-[40vh] bg-gradient-to-t from-slate-950/70 to-transparent blur-3xl opacity-60"
           />
@@ -346,7 +346,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             STATIONARY CELEBRATION HEADER
             ========================================== */}
         <header className="fixed top-6 left-0 right-0 z-40 mx-auto w-[92%] max-w-5xl flex justify-between items-center px-6 py-3 rounded-full glassmorphism border border-white/10 shadow-lg backdrop-blur-md">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('home')}
             onMouseEnter={() => setIsHoveringInteractive(true)}
@@ -383,9 +383,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             onMouseEnter={() => setIsHoveringInteractive(true)}
             onMouseLeave={() => setIsHoveringInteractive(false)}
             onClick={toggleMusic}
-            className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center cursor-pointer shadow transition-all duration-300 ${
-              isPlaying ? "bg-brand-pink/20 border-brand-pink/40 text-brand-pink shadow-brand-pink/10" : "bg-white/5 text-slate-300"
-            }`}
+            className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center cursor-pointer shadow transition-all duration-300 ${isPlaying ? "bg-brand-pink/20 border-brand-pink/40 text-brand-pink shadow-brand-pink/10" : "bg-white/5 text-slate-300"
+              }`}
           >
             <Music className={`w-4 h-4 ${isPlaying ? "animate-pulse" : ""}`} />
           </motion.button>
@@ -399,7 +398,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             <motion.div
               key={petal.id}
               initial={{ y: -50, x: petal.left, rotate: petal.rotate, opacity: 0 }}
-              animate={{ 
+              animate={{
                 y: '105vh',
                 x: `calc(${petal.left} + ${Math.sin(petal.id) * 110}px)`,
                 rotate: petal.rotate + 360,
@@ -411,8 +410,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                 delay: petal.delay,
                 ease: 'linear'
               }}
-              style={{ 
-                width: petal.size, 
+              style={{
+                width: petal.size,
                 height: petal.size * 1.25,
                 background: 'radial-gradient(circle, #ff8da1 0%, #e11d48 100%)',
                 borderRadius: '50% 0 50% 50%',
@@ -432,7 +431,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             <motion.div
               key={heart.id}
               initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ 
+              animate={{
                 opacity: [0, 0.45, 0.45, 0],
                 scale: [0.6, 1.2, 0.8],
                 y: [0, -120]
@@ -472,14 +471,14 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           >
             <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_0_10px_#a78bfa]">
               {/* Left Wing */}
-              <div 
+              <div
                 style={{ transformOrigin: 'right center', animation: 'flap-left 0.15s linear infinite' }}
                 className="w-3.5 h-6 bg-gradient-to-l from-purple-400 to-indigo-500 rounded-l-full rotate-[-15deg] absolute right-[52%]"
               />
               {/* Center Body */}
               <div className="w-1.5 h-5 bg-white/80 rounded-full z-10" />
               {/* Right Wing */}
-              <div 
+              <div
                 style={{ transformOrigin: 'left center', animation: 'flap-right 0.15s linear infinite' }}
                 className="w-3.5 h-6 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-r-full rotate-[15deg] absolute left-[52%]"
               />
@@ -498,14 +497,14 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           >
             <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_0_8px_#f472b6]">
               {/* Left Wing */}
-              <div 
+              <div
                 style={{ transformOrigin: 'right center', animation: 'flap-left 0.13s linear infinite' }}
                 className="w-3 h-5.5 bg-gradient-to-l from-pink-400 to-rose-500 rounded-l-full rotate-[-15deg] absolute right-[52%]"
               />
               {/* Center Body */}
               <div className="w-1 h-4.5 bg-white/80 rounded-full z-10" />
               {/* Right Wing */}
-              <div 
+              <div
                 style={{ transformOrigin: 'left center', animation: 'flap-right 0.13s linear infinite' }}
                 className="w-3 h-5.5 bg-gradient-to-r from-pink-400 to-rose-500 rounded-r-full rotate-[15deg] absolute left-[52%]"
               />
@@ -518,7 +517,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             ========================================== */}
         {/* Left Side: 3 Balloons */}
         <motion.div style={{ x: leftBalloonsX, y: leftBalloonsY }} className="absolute bottom-16 left-[4%] w-48 h-64 pointer-events-none z-10 hidden lg:block">
-          <motion.div 
+          <motion.div
             animate={{ y: [0, -15, 0], rotate: [-6, -2, -6] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="absolute bottom-12 left-0"
@@ -529,7 +528,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             <div className="w-[1.2px] h-36 bg-slate-500/20 mx-auto" />
           </motion.div>
 
-          <motion.div 
+          <motion.div
             animate={{ y: [-10, 10, -10], rotate: [4, 8, 4] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             className="absolute bottom-4 left-16"
@@ -540,7 +539,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             <div className="w-[1.2px] h-36 bg-slate-500/20 mx-auto" />
           </motion.div>
 
-          <motion.div 
+          <motion.div
             animate={{ y: [5, -15, 5], rotate: [-2, 4, -2] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2.2 }}
             className="absolute bottom-20 left-24"
@@ -554,7 +553,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
 
         {/* Right Side: 2 Balloons */}
         <motion.div style={{ x: rightBalloonsX, y: rightBalloonsY }} className="absolute bottom-28 right-[6%] w-48 h-64 pointer-events-none z-10 hidden lg:block">
-          <motion.div 
+          <motion.div
             animate={{ y: [-15, 5, -15], rotate: [5, 1, 5] }}
             transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
             className="absolute bottom-10 right-0"
@@ -565,7 +564,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             <div className="w-[1.2px] h-36 bg-slate-500/20 mx-auto" />
           </motion.div>
 
-          <motion.div 
+          <motion.div
             animate={{ y: [0, -20, 0], rotate: [-4, 2, -4] }}
             transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
             className="absolute bottom-2 right-16"
@@ -581,7 +580,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             MAIN HERO CENTRAL CONTENT
             ========================================== */}
         <motion.div style={{ x: contentX, y: contentY }} className="relative z-20 text-center max-w-4xl mx-auto flex-grow flex flex-col justify-center items-center py-6 mt-10">
-          
+
           {/* A. Top Celebration Badge (0.4s Timeline) */}
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.9, filter: "blur(20px)" }}
@@ -612,55 +611,114 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           </h2>
 
           {/* C. Main Heading (1.2s Timeline - Letter-by-letter Elastic + Sweep) */}
+          {/* C. Main Heading (1.2s Timeline - Letter-by-letter Elastic + Sweep) */}
           <div className="relative inline-block mb-3.5 select-none">
-            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold flex justify-center flex-wrap select-none leading-none pt-2 pb-5 relative group overflow-hidden">
+            <h1
+              className="
+      font-serif
+      text-4xl
+      sm:text-5xl
+      md:text-6xl
+      lg:text-7xl
+      xl:text-8xl
+      font-extrabold
+      flex
+      justify-center
+      flex-nowrap
+      whitespace-nowrap
+      select-none
+      leading-[0.95]
+      pt-2
+      pb-5
+      relative
+      group
+      overflow-visible
+    "
+            >
               {letters.map((char, index) => (
                 <motion.span
                   key={index}
-                  initial={{ opacity: 0, y: 80, rotateX: 30, scale: 0.8 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 90, 
-                    damping: 9, 
-                    delay: 1.2 + index * 0.04 
+                  initial={{
+                    opacity: 0,
+                    y: 80,
+                    rotateX: 30,
+                    scale: 0.8,
                   }}
-                  style={{ display: "inline-block", transformOrigin: "bottom center" }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    scale: 1,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 90,
+                    damping: 9,
+                    delay: 1.2 + index * 0.04,
+                  }}
+                  style={{
+                    display: "inline-block",
+                    transformOrigin: "bottom center",
+                  }}
                   className="bg-gradient-to-r from-brand-pink via-purple-400 to-indigo-400 bg-clip-text text-transparent glow-pulse"
                 >
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
               ))}
 
-              {/* Light Sweep (Runs at 2.2s after letter staggers) */}
+              {/* Light Sweep */}
               <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: '250%' }}
-                transition={{ duration: 2.2, delay: 2.2, repeat: Infinity, repeatDelay: 12, ease: "easeInOut" }}
+                initial={{ x: "-100%" }}
+                animate={{ x: "250%" }}
+                transition={{
+                  duration: 2.2,
+                  delay: 2.2,
+                  repeat: Infinity,
+                  repeatDelay: 12,
+                  ease: "easeInOut",
+                }}
                 className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg] pointer-events-none mix-blend-overlay"
               />
             </h1>
 
-            {/* D. Calligraphy Drawing Name "Nikita" (2.0s Timeline) */}
+            {/* D. Calligraphy Name */}
             <div className="absolute bottom-[-32px] md:bottom-[-48px] right-[4%] pointer-events-none select-none z-30">
               <motion.div
-                initial={{ opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }}
-                animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
-                transition={{ duration: 1.5, delay: 2.0, ease: "easeInOut" }}
+                initial={{
+                  opacity: 0,
+                  clipPath: "inset(0% 100% 0% 0%)",
+                }}
+                animate={{
+                  opacity: 1,
+                  clipPath: "inset(0% 0% 0% 0%)",
+                }}
+                transition={{
+                  duration: 1.5,
+                  delay: 2.0,
+                  ease: "easeInOut",
+                }}
                 className="font-handwritten text-5xl sm:text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-rose-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.65)] flex items-center gap-2 rotate-[-5deg] origin-center"
               >
                 <span>{name}!</span>
-                <span className="text-rose-400 text-4xl sm:text-6xl md:text-7xl animate-pulse">❤️</span>
+                <span className="text-rose-400 text-4xl sm:text-6xl md:text-7xl animate-pulse">
+                  ❤️
+                </span>
               </motion.div>
 
-              {/* Sparkle tracing the text sweep */}
               <motion.div
                 initial={{ left: "0%", opacity: 0 }}
                 animate={{ left: "100%", opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 1.5, delay: 2.0, ease: "easeInOut" }}
+                transition={{
+                  duration: 1.5,
+                  delay: 2.0,
+                  ease: "easeInOut",
+                }}
                 className="absolute top-1/2 -translate-y-1/2 text-yellow-300 pointer-events-none"
               >
-                <Sparkles className="w-5 h-5 animate-spin" style={{ animationDuration: '3s' }} />
+                <Sparkles
+                  className="w-5 h-5 animate-spin"
+                  style={{ animationDuration: "3s" }}
+                />
               </motion.div>
             </div>
           </div>
@@ -695,8 +753,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             <div className="absolute inset-0 bg-brand-pink/20 rounded-full blur-xl scale-95 animate-ping opacity-30" style={{ animationDuration: '3s' }}></div>
 
             <motion.button
-              whileHover={{ 
-                scale: 1.06, 
+              whileHover={{
+                scale: 1.06,
                 boxShadow: "0 0 28px rgba(255, 117, 151, 0.55)"
               }}
               whileTap={{ scale: 0.95 }}
@@ -719,7 +777,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
               className="px-8 py-3.5 bg-gradient-to-r from-brand-pink to-brand-purple text-white font-sans font-bold rounded-full shadow-lg border border-white/10 cursor-pointer text-sm md:text-base tracking-wider uppercase relative overflow-hidden group"
             >
               <span className="relative z-10">Shower Confetti 🌸</span>
-              
+
               {/* Inner Button Shine Overlay */}
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
             </motion.button>
@@ -730,7 +788,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             G. BASE ROW DECORATIVES (Candle, Scroll Indicator, Gift Box, Flowers)
             ========================================== */}
         <div className="w-full max-w-5xl mx-auto flex justify-between items-end relative z-20 px-4 md:px-12 mt-6">
-          
+
           {/* 1. Candle (Left Corner) */}
           <motion.div
             style={{ x: candleX, y: candleY }}
@@ -747,9 +805,9 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
               <path d="M 25 40 Q 35 48 45 40 Q 55 46 65 40 Q 75 48 75 40" fill="url(#candle-body-grad)" />
               <line x1="50" y1="40" x2="50" y2="24" stroke="#7c2d12" strokeWidth="3" />
               {/* Flickering Flame path */}
-              <path 
-                d="M 50 24 Q 38 10 50 0 Q 62 10 50 24 Z" 
-                fill="url(#flame-grad)" 
+              <path
+                d="M 50 24 Q 38 10 50 0 Q 62 10 50 24 Z"
+                fill="url(#flame-grad)"
                 style={{ transformOrigin: 'center bottom', animation: 'flame-wiggle 0.3s ease-in-out infinite' }}
               />
               <defs>
@@ -779,9 +837,9 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             {/* Hover Floating Sparkle */}
             <span className="absolute -top-3 w-1.5 h-1.5 bg-brand-pink/50 rounded-full blur-[0.5px] animate-ping" />
             <span className="group-hover:text-brand-pink transition-colors duration-300">Scroll to begin</span>
-            
+
             <div className="w-6 h-10 rounded-full border-2 border-slate-600/60 p-1 flex justify-center relative group-hover:border-brand-pink transition-colors duration-300">
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, 12, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                 className="w-1 h-2 rounded-full bg-brand-pink"
@@ -800,24 +858,24 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             onMouseLeave={() => setIsHoveringInteractive(false)}
             className="w-20 h-24 hidden lg:flex flex-col items-center justify-end z-10"
           >
-            <motion.svg 
+            <motion.svg
               whileHover={{ rotateY: 30, rotateX: -15, scale: 1.15 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="w-14 h-14 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)] cursor-pointer" 
+              className="w-14 h-14 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)] cursor-pointer"
               viewBox="0 0 100 100"
             >
               <rect x="15" y="40" width="70" height="50" rx="4" fill="url(#box-grad)" />
               <rect x="10" y="30" width="80" height="15" rx="3" fill="url(#lid-grad)" />
               <rect x="44" y="30" width="12" height="60" fill="#fde047" />
               {/* Wave Ribbon Bow */}
-              <path 
-                d="M 50 30 Q 30 10 44 24 Z" 
-                fill="#fde047" 
+              <path
+                d="M 50 30 Q 30 10 44 24 Z"
+                fill="#fde047"
                 style={{ animation: 'ribbon-wave 3s ease-in-out infinite' }}
               />
-              <path 
-                d="M 50 30 Q 70 10 56 24 Z" 
-                fill="#fde047" 
+              <path
+                d="M 50 30 Q 70 10 56 24 Z"
+                fill="#fde047"
                 style={{ animation: 'ribbon-wave 3s ease-in-out infinite', animationDelay: '1.5s' }}
               />
               <defs>
@@ -841,10 +899,10 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             transition={{ delay: 1.3, duration: 0.8 }}
             className="w-24 h-28 hidden lg:flex flex-col items-center justify-end z-10 select-none pointer-events-none"
           >
-            <motion.svg 
+            <motion.svg
               animate={{ rotate: [-2, 2, -2], y: [0, -3, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-18 h-18 drop-shadow-[0_0_15px_rgba(244,63,94,0.25)]" 
+              className="w-18 h-18 drop-shadow-[0_0_15px_rgba(244,63,94,0.25)]"
               viewBox="0 0 100 100"
             >
               {/* Green stems */}
