@@ -66,11 +66,11 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
   const candleX = useTransform(mouseXSpring, (x) => x * 20);
   const candleY = useTransform(mouseYSpring, (y) => y * 20);
 
-  // Custom Cursor Spring Physics
-  const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
-  const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
-  const trailX = useSpring(0, { stiffness: 120, damping: 22 });
-  const trailY = useSpring(0, { stiffness: 120, damping: 22 });
+  // Custom Cursor Spring Physics - smooth & snappy
+  const cursorX = useSpring(0, { stiffness: 800, damping: 40 });
+  const cursorY = useSpring(0, { stiffness: 800, damping: 40 });
+  const trailX = useSpring(0, { stiffness: 180, damping: 30 });
+  const trailY = useSpring(0, { stiffness: 180, damping: 30 });
 
   useEffect(() => {
     const updateCursor = (e) => {
@@ -613,7 +613,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
 
           {/* C. Main Heading (1.2s Timeline - Letter-by-letter Elastic + Sweep) */}
           <div className="relative inline-block mb-3.5 select-none">
-            <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold flex justify-center flex-wrap select-none leading-none pt-2 pb-5 relative group overflow-hidden">
+            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold flex justify-center flex-wrap select-none leading-none pt-2 pb-5 relative group overflow-hidden">
               {letters.map((char, index) => (
                 <motion.span
                   key={index}
