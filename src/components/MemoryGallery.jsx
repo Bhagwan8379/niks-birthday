@@ -1,42 +1,47 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, Heart, Sparkles } from 'lucide-react';
+import img1 from '../../public/img1.png'
+import img2 from '../../public/img2.png'
+import img3 from '../../public/img3.png'
+import img4 from '../../public/img4.png'
+import img5 from '../../public/img5.png'
 
 const memories = [
   {
     id: 1,
-    url: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=800&auto=format&fit=crop&q=80",
-    title: "Shine Bright ✨",
-    desc: "A moment of pure joy. You light up every room with your warmth and beautiful smile.",
+    url: img1,
+    title: "Captured Elegance ",
+    desc: "Pure grace, captured 🤍",
     rotation: -4,
   },
   {
     id: 2,
-    url: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&auto=format&fit=crop&q=80",
-    title: "Dreamer 🎈",
+    url: img2,
+    title: "Grace Unfolded 🎈",
     desc: "Always looking forward, dreaming big, and spreading colorful positive vibes wherever you go.",
     rotation: 3,
   },
   {
     id: 3,
-    url: "https://images.unsplash.com/photo-1535141192574-5d4897c13636?w=800&auto=format&fit=crop&q=80",
-    title: "Make a Wish 🎂",
+    url: img3,
+    title: "Moments of Magic",
     desc: "A year older, wiser, and more beautiful. May every candle you blow out translate to a dream fulfilled.",
     rotation: -2,
   },
   {
     id: 4,
-    url: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80",
+    url: img4,
     title: "Sparkle On 💖",
     desc: "Capturing the magic in everyday moments. Never let anyone dull your sparkle!",
     rotation: 5,
   },
   {
     id: 5,
-    url: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop&q=80",
+    url: img5,
     title: "Wrapped with Love 🎁",
-    desc: "Celebrating the wonderful gift that you are to the world. You are deeply loved and appreciated.",
-    rotation: -3,
+    desc: "Your smile makes every moment brighter.",
+    rotation: - 3,
   }
 ];
 
@@ -68,7 +73,7 @@ const MemoryGallery = () => {
         </div>
 
         {/* Draggable Polaroid Grid Area */}
-        <div 
+        <div
           ref={containerRef}
           className="relative min-h-[500px] md:min-h-[450px] w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 px-4 py-8 items-center justify-items-center"
         >
@@ -82,20 +87,20 @@ const MemoryGallery = () => {
               initial={{ opacity: 0, y: 50, rotate: photo.rotation * 2 }}
               whileInView={{ opacity: 1, y: 0, rotate: photo.rotation }}
               viewport={{ once: true, margin: "-100px" }}
-              whileHover={{ 
-                scale: 1.05, 
-                rotate: photo.rotation > 0 ? photo.rotation + 2 : photo.rotation - 2, 
+              whileHover={{
+                scale: 1.05,
+                rotate: photo.rotation > 0 ? photo.rotation + 2 : photo.rotation - 2,
                 y: -10,
                 zIndex: 30,
-                boxShadow: "0 20px 40px rgba(0,0,0,0.4)" 
+                boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
               }}
               onClick={() => setSelectedPhoto(photo)}
               className="w-full max-w-[210px] bg-white p-3.5 pb-6 rounded-md shadow-xl border border-slate-200 cursor-pointer flex flex-col justify-between transition-shadow duration-300 pointer-events-auto"
             >
               {/* Photo Area */}
               <div className="relative aspect-square w-full bg-slate-100 overflow-hidden rounded-sm select-none pointer-events-none">
-                <img 
-                  src={photo.url} 
+                <img
+                  src={photo.url}
                   alt={photo.title}
                   className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500"
                   loading="lazy"
@@ -135,8 +140,8 @@ const MemoryGallery = () => {
             >
               {/* Left Column: Image */}
               <div className="w-full md:w-1/2 aspect-square md:aspect-auto md:h-[450px] relative overflow-hidden bg-slate-900">
-                <img 
-                  src={selectedPhoto.url} 
+                <img
+                  src={selectedPhoto.url}
                   alt={selectedPhoto.title}
                   className="w-full h-full object-cover"
                 />
@@ -157,22 +162,14 @@ const MemoryGallery = () => {
                     <Heart className="w-4 h-4 fill-current animate-pulse" />
                     <span className="text-xs font-sans font-bold tracking-widest uppercase">Memory Details</span>
                   </div>
-                  
+
                   <h3 className="font-serif text-3xl font-extrabold text-white leading-tight mb-4">
                     {selectedPhoto.title}
                   </h3>
-                  
+
                   <p className="text-slate-300 font-sans text-sm md:text-base leading-relaxed tracking-wide">
                     {selectedPhoto.desc}
                   </p>
-                </div>
-
-                <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-6 text-slate-500 text-xs">
-                  <span className="flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
-                    Captured with love
-                  </span>
-                  <span>July 2026</span>
                 </div>
               </div>
             </motion.div>

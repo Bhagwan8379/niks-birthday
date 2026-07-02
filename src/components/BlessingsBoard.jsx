@@ -7,13 +7,20 @@ const PRESET_BLESSINGS = [
   {
     id: 'preset-1',
     from: 'Unknown 🤫',
-    message: "Sorry, I am wishing you through someone else, but you will always be special to me. 💖",
+    message: "Nik, Sorry I am wishing you through someone else, but you will always be special to me. 💖",
     color: 'bg-gradient-to-br from-pink-500/25 to-rose-600/20 border-pink-400/40',
     rotation: -2,
     isPreset: true,
   },
+  {
+    id: 'preset-2',
+    from: 'Unknown 🤫',
+    message: 'Wishing you a very happy birthday. Always keep smiling like this! 😊',
+    color: 'bg-gradient-to-br from-purple-500/25 to-indigo-600/20 border-purple-400/40',
+    rotation: 3,
+    isPreset: true,
+  }
 ];
-
 
 const COLORS = [
   { id: 'pink', value: 'bg-gradient-to-br from-pink-500/25 to-rose-600/20 border-pink-400/40', dot: 'bg-pink-400' },
@@ -60,17 +67,17 @@ const BlessingsBoard = () => {
       ...blessings.filter(b => !b.isPreset),
       newBlessing
     ];
-    
+
     // Save only user ones to LocalStorage
     localStorage.setItem('birthday_blessings', JSON.stringify(updatedUserBlessings));
-    
+
     // Show in UI
     setBlessings([...PRESET_BLESSINGS, ...updatedUserBlessings]);
 
     // Reset Form
     setFromName('');
     setMessage('');
-    
+
     // Show feedback
     confetti({
       particleCount: 50,
@@ -84,7 +91,7 @@ const BlessingsBoard = () => {
   const handleDelete = (id) => {
     const updatedUserBlessings = blessings
       .filter(b => !b.isPreset && b.id !== id);
-    
+
     localStorage.setItem('birthday_blessings', JSON.stringify(updatedUserBlessings));
     setBlessings([...PRESET_BLESSINGS, ...updatedUserBlessings]);
   };
@@ -119,7 +126,7 @@ const BlessingsBoard = () => {
               <MessageSquarePlus className="w-6 h-6 text-brand-pink" />
               Write a Blessing
             </h3>
-            
+
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-xs font-sans font-bold tracking-widest text-slate-400 uppercase mb-2">
@@ -163,9 +170,8 @@ const BlessingsBoard = () => {
                       key={c.id}
                       type="button"
                       onClick={() => setSelectedColor(c.value)}
-                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${
-                        selectedColor === c.value ? "border-white scale-110 shadow-lg" : "border-transparent opacity-70 hover:opacity-100"
-                      }`}
+                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${selectedColor === c.value ? "border-white scale-110 shadow-lg" : "border-transparent opacity-70 hover:opacity-100"
+                        }`}
                     >
                       <div className={`w-5 h-5 rounded-full ${c.dot}`} />
                     </button>
@@ -214,7 +220,7 @@ const BlessingsBoard = () => {
                       <span className="font-sans text-xs font-bold text-slate-300 tracking-wide">
                         — {b.from}
                       </span>
-                      
+
                       {!b.isPreset && (
                         <button
                           onClick={() => handleDelete(b.id)}
