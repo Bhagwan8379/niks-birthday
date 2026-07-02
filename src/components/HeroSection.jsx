@@ -24,10 +24,9 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
   });
 
   // Smooth scroll transformations for parallax depth
-  const heroScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.94]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.6, 0.85], [1, 0.8, 0]);
-  const bgZoom = useTransform(scrollYProgress, [0, 1], ["100%", "115%"]);
-  const clipProgress = useTransform(scrollYProgress, [0.5, 1], ["circle(150% at 50% 50%)", "circle(0% at 50% 50%)"]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.97]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.9]);
+  const bgZoom = useTransform(scrollYProgress, [0, 1], ["100%", "108%"]);
 
   // Mouse Parallax Springs
   const springConfig = { stiffness: 60, damping: 25 };
@@ -158,16 +157,15 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
   const letters = "Happy Birthday".split("");
 
   return (
-    <div ref={containerRef} className={`w-full bg-[#03010a] ${isDesktop ? "relative h-[160vh]" : "relative h-auto py-0"}`}>
-      {/* Sticky Inner Viewport */}
+    <div ref={containerRef} className="relative w-full bg-[#03010a]">
+      {/* Hero Section - Full screen, no sticky tricks */}
       <motion.section
         style={{ 
-          opacity: isDesktop ? heroOpacity : 1, 
-          scale: isDesktop ? heroScale : 1, 
-          clipPath: isDesktop ? clipProgress : "none" 
+          opacity: heroOpacity,
+          scale: heroScale,
         }}
-        className={`w-full flex flex-col items-center justify-between overflow-hidden bg-[#05030e] select-none cursor-none ${
-          isDesktop ? "sticky top-0 h-screen pt-24 pb-8 px-4" : "relative min-h-screen pt-24 pb-12 px-4"
+        className={`relative w-full flex flex-col items-center justify-between overflow-hidden bg-[#05030e] select-none cursor-none min-h-screen ${
+          isDesktop ? "pt-24 pb-8 px-4" : "pt-24 pb-12 px-4"
         }`}
       >
         
