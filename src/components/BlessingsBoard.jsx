@@ -7,19 +7,11 @@ const PRESET_BLESSINGS = [
   {
     id: 'preset-1',
     from: 'Unknown 🤫',
-    message: "Nik, please understand that wishing you through someone else is indeed my wish. I cannot wish you directly, sorry for that. But you will always be special to me. I am sorry for wishing you through someone else.",
+    message: "Sorry... I'm wishing you through someone else. But you will always be special to me. 💖",
     color: 'bg-gradient-to-br from-pink-500/25 to-rose-600/20 border-pink-400/40',
     rotation: -2,
     isPreset: true,
   },
-  {
-    id: 'preset-2',
-    from: 'Unknown 🤫',
-    message: 'Wishing you a very happy birthday. Always keep smiling like this! 😊',
-    color: 'bg-gradient-to-br from-purple-500/25 to-indigo-600/20 border-purple-400/40',
-    rotation: 3,
-    isPreset: true,
-  }
 ];
 
 const COLORS = [

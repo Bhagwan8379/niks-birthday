@@ -6,7 +6,11 @@ import confetti from 'canvas-confetti';
 const wishesList = [
   {
     category: "From Unknown 🤫",
-    content: "Sorry... me dusryachya haatun tula wish karto aahe, pn tu always special aahe mazya saathi. 💛"
+    content: "Happy Birthday, Nik! On this special day, I hope your life is filled with pure happiness, endless laughter, and beautiful achievements. May every dream of yours turn into reality. Keep shining bright, just like you always do! ✨"
+  },
+  {
+    category: "Happy Birthday Nik! 🎉",
+    content: "Wishing you a wonderful year ahead filled with peace, joy, and sweet surprises. May you always find reasons to laugh, and may your days be as bright and beautiful as your smile. Always keep smiling! 😊"
   }
 ];
 
