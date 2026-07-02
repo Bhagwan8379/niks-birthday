@@ -7,12 +7,13 @@ const PRESET_BLESSINGS = [
   {
     id: 'preset-1',
     from: 'Unknown 🤫',
-    message: "Sorry... I'm wishing you through someone else. But you will always be special to me. 💖",
+    message: "Sorry, I am wishing you through someone else, but you will always be special to me. 💖",
     color: 'bg-gradient-to-br from-pink-500/25 to-rose-600/20 border-pink-400/40',
     rotation: -2,
     isPreset: true,
   },
 ];
+
 
 const COLORS = [
   { id: 'pink', value: 'bg-gradient-to-br from-pink-500/25 to-rose-600/20 border-pink-400/40', dot: 'bg-pink-400' },
