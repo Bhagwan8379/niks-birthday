@@ -56,7 +56,7 @@ const WishCard = () => {
             <span className="font-sans font-semibold tracking-wider text-xs uppercase">Your Wishes</span>
           </div>
           <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-glow text-white mb-4">
-            The Interactive Wish Card
+            The Wish Card
           </h2>
           <p className="text-slate-400 font-sans max-w-md mx-auto text-sm md:text-base">
             Click on the envelope to open a personalized handwritten card containing heartfelt wishes just for you!
@@ -177,9 +177,8 @@ const WishCard = () => {
                       {wishesList.map((_, i) => (
                         <div
                           key={i}
-                          className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                            i === activeWishIndex ? "bg-brand-pink" : "bg-slate-300"
-                          }`}
+                          className={`w-2 h-2 rounded-full transition-colors duration-300 ${i === activeWishIndex ? "bg-brand-pink" : "bg-slate-300"
+                            }`}
                         />
                       ))}
                     </div>
@@ -193,7 +192,7 @@ const WishCard = () => {
                         <span>Click Next</span>
                         <span>👉</span>
                       </motion.span>
-                      
+
                       <motion.button
                         onClick={nextWish}
                         animate={{ scale: [1, 1.05, 1] }}
