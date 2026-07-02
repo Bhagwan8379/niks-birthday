@@ -40,24 +40,24 @@ const CelebrationGate = ({ onEnter }) => {
     }, 1800);
   };
 
-  // Generate background elements
-  const stars = [...Array(25)].map((_, i) => ({
+  // Generate background elements - memoized to prevent recreation on component updates
+  const stars = React.useMemo(() => [...Array(25)].map((_, i) => ({
     id: i,
     top: `${Math.random() * 95}%`,
     left: `${Math.random() * 95}%`,
     size: Math.random() * 2 + 1,
     duration: Math.random() * 3 + 2,
     delay: Math.random() * 5
-  }));
+  })), []);
 
-  const hearts = [...Array(5)].map((_, i) => ({
+  const hearts = React.useMemo(() => [...Array(5)].map((_, i) => ({
     id: i,
     left: `${Math.random() * 80 + 10}%`,
     top: `${Math.random() * 80 + 10}%`,
     size: Math.random() * 14 + 10,
     delay: Math.random() * 6,
     duration: Math.random() * 5 + 4,
-  }));
+  })), []);
 
   return (
     <AnimatePresence>
@@ -103,14 +103,21 @@ const CelebrationGate = ({ onEnter }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0.1, 0.7, 0.1] }}
                 transition={{ duration: star.duration, repeat: Infinity, delay: star.delay, ease: 'easeInOut' }}
-                style={{ top: star.top, left: star.left, width: star.size, height: star.size, boxShadow: '0 0 5px #fff' }}
+                style={{
+                  top: star.top,
+                  left: star.left,
+                  width: star.size,
+                  height: star.size,
+                  boxShadow: '0 0 5px #fff',
+                  willChange: 'opacity'
+                }}
                 className="absolute bg-white rounded-full"
               />
             ))}
 
             {/* Glowing Auroras */}
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-purple/10 rounded-full blur-[140px] animate-pulse"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-brand-pink/10 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: '2.5s' }}></div>
+            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-purple/10 rounded-full blur-[140px] animate-pulse" style={{ willChange: 'opacity' }}></div>
+            <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-brand-pink/10 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: '2.5s', willChange: 'opacity' }}></div>
 
             {/* Bokeh Out-of-focus Boxes (Floating) */}
             {/* Top Left Box */}
@@ -153,7 +160,13 @@ const CelebrationGate = ({ onEnter }) => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: [0, 0.45, 0.45, 0], scale: [0.8, 1.2, 0.9], y: [0, -100] }}
                 transition={{ duration: heart.duration, repeat: Infinity, delay: heart.delay }}
-                style={{ left: heart.left, top: heart.top, width: heart.size, height: heart.size }}
+                style={{
+                  left: heart.left,
+                  top: heart.top,
+                  width: heart.size,
+                  height: heart.size,
+                  willChange: 'transform, opacity'
+                }}
                 className="absolute text-brand-pink/30 flex items-center justify-center"
               >
                 <Heart className="w-full h-full fill-current" />
@@ -162,7 +175,7 @@ const CelebrationGate = ({ onEnter }) => {
 
             {/* Glowing Butterflies */}
             {/* Top Right Butterfly */}
-            <div className="absolute top-[12%] right-[10%] w-10 h-10" style={{ animation: 'fly-path-1 15s ease-in-out infinite' }}>
+            <div className="absolute top-[12%] right-[10%] w-10 h-10" style={{ animation: 'fly-path-1 15s ease-in-out infinite', willChange: 'transform' }}>
               <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_0_10px_#a78bfa]">
                 <div style={{ transformOrigin: 'right center', animation: 'flap-l 0.14s linear infinite' }} className="w-4 h-6 bg-gradient-to-l from-purple-400 to-indigo-500 rounded-l-full rotate-[-12deg] absolute right-[52%]" />
                 <div className="w-1.2 h-4.5 bg-white/80 rounded-full" />
@@ -171,7 +184,7 @@ const CelebrationGate = ({ onEnter }) => {
             </div>
 
             {/* Left/Middle Butterfly */}
-            <div className="absolute top-[48%] left-[12%] w-8 h-8" style={{ animation: 'fly-path-1 12s ease-in-out infinite', animationDelay: '3s' }}>
+            <div className="absolute top-[48%] left-[12%] w-8 h-8" style={{ animation: 'fly-path-1 12s ease-in-out infinite', animationDelay: '3s', willChange: 'transform' }}>
               <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_0_8px_#f472b6]">
                 <div style={{ transformOrigin: 'right center', animation: 'flap-l 0.16s linear infinite' }} className="w-3 h-5 bg-gradient-to-l from-pink-400 to-rose-500 rounded-l-full rotate-[-12deg] absolute right-[52%]" />
                 <div className="w-1 h-3.5 bg-white/80 rounded-full" />

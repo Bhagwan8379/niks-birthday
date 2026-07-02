@@ -15,7 +15,7 @@ const AudioPlayer = ({ audioRef, isPlaying, setIsPlaying }) => {
 
   const togglePlay = () => {
     if (!audioRef.current) return;
-    
+
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
@@ -64,9 +64,8 @@ const AudioPlayer = ({ audioRef, isPlaying, setIsPlaying }) => {
           <motion.div
             animate={isPlaying ? { rotate: 360 } : {}}
             transition={isPlaying ? { repeat: Infinity, duration: 4, ease: 'linear' } : {}}
-            className={`w-10 h-10 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center relative overflow-hidden ${
-              isPlaying ? "shadow-lg shadow-brand-pink/20" : ""
-            }`}
+            className={`w-10 h-10 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center relative overflow-hidden ${isPlaying ? "shadow-lg shadow-brand-pink/20" : ""
+              }`}
           >
             {/* Grooves on vinyl */}
             <div className="absolute inset-1 rounded-full border border-slate-800"></div>
@@ -93,7 +92,7 @@ const AudioPlayer = ({ audioRef, isPlaying, setIsPlaying }) => {
             {isPlaying ? "NOW PLAYING" : "MUSIC PAUSED"}
           </span>
           <span className="text-[11px] text-slate-300 font-sans font-semibold max-w-[100px] truncate">
-            Aesthetic Guitar 🎸
+            Like A Butterfly
           </span>
         </div>
 

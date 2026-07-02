@@ -5,7 +5,6 @@ import confetti from 'canvas-confetti';
 
 const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => {
   const containerRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
   const [cursorClicks, setCursorClicks] = useState([]);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -37,16 +36,12 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
     const handleMouseMove = (e) => {
       const x = (e.clientX / window.innerWidth) - 0.5;
       const y = (e.clientY / window.innerHeight) - 0.5;
-      setMousePos({ x, y });
+      mouseXSpring.set(x);
+      mouseYSpring.set(y);
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    mouseXSpring.set(mousePos.x);
-    mouseYSpring.set(mousePos.y);
-  }, [mousePos, mouseXSpring, mouseYSpring]);
+  }, [mouseXSpring, mouseYSpring]);
 
   // Parallax bindings
   const bgX = useTransform(mouseXSpring, (x) => x * -25);
@@ -125,36 +120,36 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
     }
   };
 
-  // Generate background elements
-  const stars = [...Array(40)].map((_, i) => ({
+  // Generate background elements - memoized to prevent layout thrashing on mouse movement
+  const stars = React.useMemo(() => [...Array(40)].map((_, i) => ({
     id: i,
     top: `${Math.random() * 90}%`,
     left: `${Math.random() * 95}%`,
     size: Math.random() * 2 + 1,
     duration: Math.random() * 3 + 2,
     delay: Math.random() * 5
-  }));
+  })), []);
 
-  const petals = [...Array(18)].map((_, i) => ({
+  const petals = React.useMemo(() => [...Array(18)].map((_, i) => ({
     id: i,
     left: `${Math.random() * 100}%`,
     size: Math.random() * 12 + 6,
     delay: Math.random() * 8,
     duration: Math.random() * 15 + 10,
     rotate: Math.random() * 360,
-  }));
+  })), []);
 
-  const hearts = [...Array(8)].map((_, i) => ({
+  const hearts = React.useMemo(() => [...Array(8)].map((_, i) => ({
     id: i,
     left: `${Math.random() * 80 + 10}%`,
     top: `${Math.random() * 70 + 15}%`,
     size: Math.random() * 16 + 10,
     delay: Math.random() * 6 + 1,
     duration: Math.random() * 5 + 4,
-  }));
+  })), []);
 
-  const words = "Wishing a beautiful".split(" ");
-  const letters = "Happy Birthday".split("");
+  const words = React.useMemo(() => "Wishing a beautiful".split(" "), []);
+  const letters = React.useMemo(() => "Happy Birthday".split(""), []);
 
   return (
     <div ref={containerRef} className="relative w-full bg-[#03010a]">
@@ -299,7 +294,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                 left: star.left,
                 width: star.size,
                 height: star.size,
-                boxShadow: '0 0 6px #fff'
+                boxShadow: '0 0 6px #fff',
+                willChange: 'opacity'
               }}
               className="absolute bg-white rounded-full"
             />
@@ -310,7 +306,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] rounded-full blur-[140px] opacity-[0.25]"
             style={{
               background: 'radial-gradient(circle, rgba(139,92,246,0.6) 0%, rgba(236,72,153,0.15) 60%, rgba(0,0,0,0) 100%)',
-              animation: 'aurora-flow-1 25s ease-in-out infinite'
+              animation: 'aurora-flow-1 25s ease-in-out infinite',
+              willChange: 'transform'
             }}
           />
 
@@ -319,7 +316,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             className="absolute bottom-[-10%] right-[-10%] w-[90vw] h-[90vw] rounded-full blur-[160px] opacity-[0.22]"
             style={{
               background: 'radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.15) 70%, rgba(0,0,0,0) 100%)',
-              animation: 'aurora-flow-2 30s ease-in-out infinite'
+              animation: 'aurora-flow-2 30s ease-in-out infinite',
+              willChange: 'transform'
             }}
           />
 
@@ -416,7 +414,8 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                 background: 'radial-gradient(circle, #ff8da1 0%, #e11d48 100%)',
                 borderRadius: '50% 0 50% 50%',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-                filter: 'blur(0.4px)'
+                filter: 'blur(0.4px)',
+                willChange: 'transform, opacity'
               }}
               className="absolute"
             />
@@ -447,6 +446,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                 top: heart.top,
                 width: heart.size,
                 height: heart.size,
+                willChange: 'transform, opacity'
               }}
               className="absolute text-brand-pink/35 blur-[1px] flex items-center justify-center"
             >
@@ -467,6 +467,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
               rotate: [0, 35, -25, 45, -35, 0]
             }}
             transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+            style={{ willChange: "transform" }}
             className="absolute w-8 h-8 flex items-center justify-center"
           >
             <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_0_10px_#a78bfa]">
@@ -493,6 +494,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
               rotate: [0, -45, 30, -60, 45, 0]
             }}
             transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+            style={{ willChange: "transform" }}
             className="absolute w-7 h-7 flex items-center justify-center"
           >
             <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_0_8px_#f472b6]">
@@ -583,9 +585,10 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
 
           {/* A. Top Celebration Badge (0.4s Timeline) */}
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9, filter: "blur(20px)" }}
+            initial={{ opacity: 0, y: 30, scale: 0.9, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }} // power4.out equivalent
+            style={{ willChange: "transform, opacity" }}
             onClick={triggerConfetti}
             onMouseEnter={() => setIsHoveringInteractive(true)}
             onMouseLeave={() => setIsHoveringInteractive(false)}
@@ -601,9 +604,10 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             {words.map((word, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0, filter: "blur(10px)", y: 15 }}
+                initial={{ opacity: 0, filter: "blur(4px)", y: 15 }}
                 animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.08, ease: "easeOut" }}
+                style={{ willChange: "transform, opacity" }}
               >
                 {word}
               </motion.span>
@@ -659,6 +663,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                   style={{
                     display: "inline-block",
                     transformOrigin: "bottom center",
+                    willChange: "transform, opacity",
                   }}
                   className="bg-gradient-to-r from-brand-pink via-purple-400 to-indigo-400 bg-clip-text text-transparent glow-pulse"
                 >
@@ -697,6 +702,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                   delay: 2.0,
                   ease: "easeInOut",
                 }}
+                style={{ willChange: "transform, opacity" }}
                 className="font-handwritten text-5xl sm:text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-rose-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.65)] flex items-center gap-2 rotate-[-5deg] origin-center"
               >
                 <span>{name}!</span>
@@ -732,9 +738,10 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             ].map((line, idx) => (
               <motion.p
                 key={idx}
-                initial={{ opacity: 0, filter: "blur(6px)", y: 15 }}
+                initial={{ opacity: 0, filter: "blur(3px)", y: 15 }}
                 animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                 transition={{ duration: 0.7, delay: 2.6 + idx * 0.15, ease: "easeOut" }}
+                style={{ willChange: "transform, opacity" }}
                 className="text-slate-400 text-sm sm:text-base md:text-lg font-sans tracking-wide leading-relaxed"
               >
                 {line}
@@ -747,6 +754,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.8, delay: 3.0, type: "spring" }}
+            style={{ willChange: "transform, opacity" }}
             className="relative z-20 mb-8"
           >
             {/* Pulsing Breathing Background Glow */}
@@ -791,7 +799,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
 
           {/* 1. Candle (Left Corner) */}
           <motion.div
-            style={{ x: candleX, y: candleY }}
+            style={{ x: candleX, y: candleY, willChange: "transform, opacity" }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.3, duration: 0.8 }}
@@ -829,6 +837,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 3.3, duration: 0.8 }}
+            style={{ willChange: "transform, opacity" }}
             onClick={() => scrollToSection('gallery')}
             onMouseEnter={() => setIsHoveringInteractive(true)}
             onMouseLeave={() => setIsHoveringInteractive(false)}
@@ -850,7 +859,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
 
           {/* 3. 3D Gift Box (Parallax + Hover 3D rotation) */}
           <motion.div
-            style={{ x: giftX, y: giftY }}
+            style={{ x: giftX, y: giftY, willChange: "transform, opacity" }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.3, duration: 0.8 }}
@@ -893,7 +902,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
 
           {/* 4. Luxury Flower Bouquet (Right Corner) */}
           <motion.div
-            style={{ x: flowersX, y: flowersY }}
+            style={{ x: flowersX, y: flowersY, willChange: "transform, opacity" }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.3, duration: 0.8 }}
