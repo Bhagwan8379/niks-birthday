@@ -3,11 +3,27 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'fra
 import { Heart, Sparkles, ChevronDown, Music, Star, Gift } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+const bgImages = [
+  '/img3.png',
+  '/img4.png',
+  '/img5.png',
+  '/img1.png',
+  '/img2.png',
+];
+
 const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => {
   const containerRef = useRef(null);
   const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
   const [cursorClicks, setCursorClicks] = useState([]);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % bgImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const checkSize = () => setIsDesktop(window.innerWidth >= 768);
@@ -273,7 +289,24 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             STARRING & BACKGROUND ELEMENTS (Twinkles & Auroras)
             ========================================== */}
         <motion.div style={{ x: bgX, y: bgY, scale: bgZoom }} className="absolute inset-0 pointer-events-none z-0">
-
+          {/* Background Image Slideshow with Crossfade */}
+          <div className="absolute inset-0 z-0">
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={currentImgIndex}
+                initial={{ opacity: 0, scale: 1.03 }}
+                animate={{ opacity: 0.55, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 1.8, ease: "easeInOut" }}
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${bgImages[currentImgIndex]})` }}
+              />
+            </AnimatePresence>
+            {/* Elegant dark overlay vignette */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#050212]/80 via-transparent to-[#1a0110]/80 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#05030e]/75 via-transparent to-[#03010a]/85" />
+            <div className="absolute inset-0 bg-[#05030e]/15" />
+          </div>
           {/* Noise Jitter layer */}
           <div className="absolute inset-[-5%] noise-overlay opacity-[0.035] pointer-events-none z-10" style={{ animation: 'noise-jitter 0.4s steps(4) infinite' }}></div>
 
@@ -600,7 +633,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
           </motion.div>
 
           {/* B. Sub Heading (0.8s Timeline - Word-by-word) */}
-          <h2 className="font-serif text-2xl md:text-4xl text-slate-100 font-medium tracking-wide mb-3 flex flex-wrap gap-x-2.5 justify-center">
+          <h2 className="font-sans text-xs sm:text-sm md:text-base text-brand-pink font-semibold tracking-[0.25em] uppercase mb-4 flex flex-wrap gap-x-2 justify-center">
             {words.map((word, index) => (
               <motion.span
                 key={index}
@@ -614,37 +647,16 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
             ))}
           </h2>
 
-          {/* C. Main Heading (1.2s Timeline - Letter-by-letter Elastic + Sweep) */}
-          {/* C. Main Heading (1.2s Timeline - Letter-by-letter Elastic + Sweep) */}
-          <div className="relative inline-block mb-3.5 select-none">
-            <h1
-              className="
-      font-serif
-      text-4xl
-      sm:text-5xl
-      md:text-6xl
-      lg:text-7xl
-      xl:text-8xl
-      font-extrabold
-      flex
-      justify-center
-      flex-nowrap
-      whitespace-nowrap
-      select-none
-      leading-[0.95]
-      pt-2
-      pb-5
-      relative
-      group
-      overflow-visible
-    "
-            >
+          {/* C. Centered & Glowing Title & Name */}
+          <div className="flex flex-col items-center select-none w-full relative z-30">
+            {/* Happy Birthday Heading */}
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-[0.9] pt-2 pb-1 relative group overflow-visible flex justify-center flex-nowrap whitespace-nowrap">
               {letters.map((char, index) => (
                 <motion.span
                   key={index}
                   initial={{
                     opacity: 0,
-                    y: 80,
+                    y: 60,
                     rotateX: 30,
                     scale: 0.8,
                   }}
@@ -665,7 +677,7 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                     transformOrigin: "bottom center",
                     willChange: "transform, opacity",
                   }}
-                  className="bg-gradient-to-r from-brand-pink via-purple-400 to-indigo-400 bg-clip-text text-transparent glow-pulse"
+                  className="bg-gradient-to-r from-slate-100 via-white to-slate-200 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                 >
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
@@ -682,47 +694,53 @@ const HeroSection = ({ name = "Nikita", audioRef, isPlaying, setIsPlaying }) => 
                   repeatDelay: 12,
                   ease: "easeInOut",
                 }}
-                className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg] pointer-events-none mix-blend-overlay"
+                className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] pointer-events-none mix-blend-overlay"
               />
             </h1>
 
-            {/* D. Calligraphy Name */}
-            <div className="absolute bottom-[-32px] md:bottom-[-48px] right-[4%] pointer-events-none select-none z-30">
+            {/* Glowing Calligraphy Name - Centered & Magnified */}
+            <div className="relative mt-2 md:mt-3">
               <motion.div
                 initial={{
                   opacity: 0,
-                  clipPath: "inset(0% 100% 0% 0%)",
+                  scale: 0.8,
+                  y: 30,
                 }}
                 animate={{
                   opacity: 1,
-                  clipPath: "inset(0% 0% 0% 0%)",
+                  scale: 1,
+                  y: 0,
                 }}
                 transition={{
-                  duration: 1.5,
+                  type: "spring",
+                  stiffness: 70,
+                  damping: 10,
                   delay: 2.0,
-                  ease: "easeInOut",
                 }}
                 style={{ willChange: "transform, opacity" }}
-                className="font-handwritten text-5xl sm:text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-rose-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.65)] flex items-center gap-2 rotate-[-5deg] origin-center"
+                className="font-handwritten text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-400 to-rose-300 drop-shadow-[0_0_35px_rgba(244,114,182,0.65)] flex items-center justify-center gap-4 rotate-[-3deg] origin-center py-2"
               >
                 <span>{name}!</span>
-                <span className="text-rose-400 text-4xl sm:text-6xl md:text-7xl animate-pulse">
+                <span className="text-rose-400 text-5xl sm:text-7xl md:text-8xl animate-pulse">
                   ❤️
                 </span>
               </motion.div>
 
+              {/* Magical sparkles orbiting/flying around the name */}
               <motion.div
                 initial={{ left: "0%", opacity: 0 }}
                 animate={{ left: "100%", opacity: [0, 1, 1, 0] }}
                 transition={{
-                  duration: 1.5,
-                  delay: 2.0,
+                  duration: 2.0,
+                  delay: 2.2,
+                  repeat: Infinity,
+                  repeatDelay: 5,
                   ease: "easeInOut",
                 }}
                 className="absolute top-1/2 -translate-y-1/2 text-yellow-300 pointer-events-none"
               >
                 <Sparkles
-                  className="w-5 h-5 animate-spin"
+                  className="w-6 h-6 animate-spin"
                   style={{ animationDuration: "3s" }}
                 />
               </motion.div>
